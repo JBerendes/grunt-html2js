@@ -29,6 +29,25 @@ module.exports = function(grunt) {
     return p;
   };
 
+  // take an icoming string or array and return the appropriate prefix string to be used on the filepath
+  var pathInString = function(arr,str){
+    if(str === undefined) {
+      str = '';
+    }
+    arr = typeof arr === 'object' ? arr : [arr];
+    var prefix = '';
+    if(typeof arr === 'object' && arr.length) {
+      for (var i = arr.length - 1; i >= 0; i--) {
+        if(str.search(arr[i] + '/') === 0) {
+          prefix = arr[i];
+        }
+      };    
+    } else {
+      prefix = arr[0];
+    }
+    return prefix;
+  }
+
   // Warn on and remove invalid source files (if nonull was set).
   var existsFilter = function(filepath) {
 
@@ -153,7 +172,7 @@ module.exports = function(grunt) {
 
       var modules = f.src.filter(existsFilter).map(function(filepath) {
 
-        var moduleName = normalizePath(path.relative(options.base, filepath));
+        var moduleName = normalizePath(path.relative(pathInString(options.base), filepath));
         if (grunt.util.kindOf(options.rename) === 'function') {
           moduleName = options.rename(moduleName);
         }

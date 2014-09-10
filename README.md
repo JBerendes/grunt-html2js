@@ -68,10 +68,10 @@ The `dest` property must be a string.  If it is an array, Grunt will fail when a
 ### Options
 
 #### options.base
-Type: `String`
+Type: `String` or `Array`
 Default value: `'src'`
 
-The prefix relative to the project directory that should be stripped from each template path to produce a module identifier for the template.  For example, a template located at `src/projects/projects.tpl.html` would be identified as just `projects/projects.tpl.html`.
+The prefix relative to the project directory that should be stripped from each template path to produce a module identifier for the template/s.  For example, a template located at `src/projects/projects.tpl.html` would be identified as just `projects/projects.tpl.html`.  When setting an array as the value put the more specific value earlier in the array `['src/projects','src']` The more specific selection will be used.
 
 #### options.target
 Type: `String`
